@@ -1,0 +1,206 @@
+% M2I Formal Report Template
+% ------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+% begin package imports -- {{{
+\usepackage{graphicx}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tabto}
+\usepackage{titling}
+%\usepackage[iso,english]{isodate}
+\usepackage{tabu}
+\usepackage[intoc]{nomencl}
+\makenomenclature
+\usepackage{datetime}
+\usdate
+\usepackage[T1]{fontenc}
+\usepackage{algorithmic,algorithm}
+\usepackage{color}
+\usepackage{listings,url}
+\usepackage{pdfpages}
+\usepackage{wallpaper}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{changepage}
+\usepackage{pdfpages}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{montserrat}
+
+% ------------------------------------------
+% ToC, AIAA-style Bibliography
+\usepackage[immediate]{silence}
+\WarningFilter{latex}{You have requested package}
+\usepackage[tocgraduated]{assets/tocstyle}
+\usetocstyle{standard}
+\RequirePackage[sort&compress,numbers]{natbib}
+\bibliographystyle{new-aiaa}
+\WarningFilter[temp]{latex}{Command}
+    \usepackage{sectsty}
+\DeactivateWarningFilters[temp]
+\usepackage[nottoc]{tocbibind}
+
+% ------------------------------------------
+% Figures & tables
+\usepackage{float}
+\usepackage[small,bf]{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{placeins}
+\usepackage{makecell}
+\usepackage[figuresleft]{rotating}
+
+% ------------------------------------------
+% Custom layout parameters
+\usepackage[margin=0.75in]{geometry}
+\definecolor{MASA-Blue}{RGB}{0,39,76}
+\renewcommand\thesection{\Roman{section}}
+\renewcommand{\bibsection}{\section{References}}
+\newcommand{\boldheader}[1]{\vspace{5mm}\textbf{#1}\textbf{:}\newline}
+\sectionfont{\fontsize{19}{20}\color{MASA-Blue}\fontseries{b}\fontfamily{Montserrat-TOsF}\selectfont}
+\subsectionfont{\fontsize{16}{18}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont}
+\subsubsectionfont{\fontseries{sb}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont}
+\titlespacing{\subsection}{0pt}{100mm}{0pt}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{1em}
+
+% end package imports -- }}}
+
+% begin set section title styles -- {{{
+
+%\titleformat{\section} {\setcounter{checklistnum}{0} \normalfont\Large\bfseries}{}{0em}{}[{\titlerule[0.8pt]}]
+%\titleformat{\subsection} {\setcounter{checklistnum}{0} \normalfont\large}{}{0em}{}[{\titlerule[0.6pt]}]
+% end set section title styles -- }}}
+
+% begin checklist symbols definition -- {{{
+\usepackage{enumitem,amssymb}
+\newcounter{checklistnum}
+\setcounter{checklistnum}{0}
+\DeclareRobustCommand{\checklistnumber}{\refstepcounter{checklistnum}\thechecklistnum}
+\newlist{checklist}{itemize}{6}
+\setlist[checklist,1]{
+label={\color{gray}\checklistnumber}\hspace{2em}$\square$,
+leftmargin=0em,
+itemindent=2em
+}
+\setlist[checklist,2]{
+label={\color{gray}\checklistnumber}\hspace{4em}$\square$,
+leftmargin=0em,
+itemindent=4em
+}
+\setlist[checklist,3]{
+label={\color{gray}\checklistnumber}\hspace{6em}$\square$,
+leftmargin=0em,
+itemindent=6em
+}
+\setlist[checklist,4]{
+label={\color{gray}\checklistnumber}\hspace{8em}$\square$,
+leftmargin=0em,
+itemindent=8em
+}
+\setlist[checklist,5]{
+label={\color{gray}\checklistnumber}\hspace{10em}$\square$,
+leftmargin=0em,
+itemindent=10em
+}
+\setlist[checklist,6]{
+label={\color{gray}\checklistnumber}\hspace{12em}$\square$,
+leftmargin=0em,
+itemindent=12em
+}
+% end checklist symbols definition -- }}}
+
+\newcommand{\GO}{\textcolor{green}{\textbf{GO }}}
+\newcommand{\NOGO}{\textcolor{red}{\textbf{NO-GO }}}
+
+% begin personnel macro -- {{{
+\newcommand{\operator}[4]{%
+  \expandafter\newcommand\csname #1\endcsname{{\color{#2}\textbf{#3}}\phantom{}}
+  \expandafter\newcommand\csname #1full\endcsname{{\color{#2}\textbf{#4 [#3]}}\phantom{}}
+}
+% end personnel macro -- }}}
+
+% begin flag macro -- {{{
+\newcommand\flag[1]{
+    \hfill \makebox(0,0){\hspace{1.7in}\textcolor{#1}{\rule{0.3in}{0.5in}}}
+}
+% end flag macro -- }}}
+
+\pagenumbering{gobble}
+
+
+\newcommand\signature[2]{
+    \begin{minipage}{5cm}
+        \noindent\vspace{4.5mm}\par
+        \noindent\vspace{-1mm}\rule{#1cm}{0.5pt}\par
+        \noindent#2
+    \end{minipage}
+}
+
+% ------------------------------------------
+% Title Page
+\newcommand\makeTitlePage[1]{
+    \newpage
+    \ClearWallPaper
+    \thispagestyle{empty}
+    \setlength{\parskip}{0in}
+    \LLCornerWallPaper{1}{assets/Footer4.pdf}
+    \vspace*{\fill}
+    \begin{adjustwidth}{1.5cm}{1.5cm} 
+    \begin{center}
+        \includegraphics[width=7cm]{assets/M2I Logo Clean.png}\\
+        \vspace{20mm}
+        \fontsize{28}{30}\fontseries{b}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont{\mytitle}\\
+        \vspace{15mm}
+        \fontsize{14}{16}\fontseries{sb}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont{\mydate\\\vspace{7.5mm} Prepared by:}\\
+        \fontsize{14}{16}\fontseries{m}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont{\myauthors}\\
+        \vspace{7.5mm}
+        \fontsize{14}{16}\fontseries{sb}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont{Prepared for:}\\
+        \fontsize{14}{16}\fontseries{m}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont{#1}
+        \vspace{50mm}
+    \end{center}
+    \end{adjustwidth}
+    \vspace*{\fill}
+    \setlength{\parskip}{1em}
+}
+
+% ------------------------------------------
+% Cover Page
+\newcommand\makeCoverPage{
+    \newpage
+    \ClearWallPaper
+    \thispagestyle{empty}
+    \setlength{\parskip}{0in}
+    \LLCornerWallPaper{1}{assets/Footer4.pdf}
+    \vspace*{\fill}
+    \begin{adjustwidth}{1.5cm}{1.5cm} 
+    \begin{center}
+        \includegraphics[width=9cm]{assets/M2I Logo Clean.png}\\
+        \vspace{25mm}
+        \fontsize{33}{35}\fontseries{b}\fontshape{n}\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont{\mytitle}
+        \vspace{45mm}
+    \end{center}
+    \end{adjustwidth}
+    \vspace*{\fill}
+    \setlength{\parskip}{1em}
+}
+
+% ------------------------------------------
+% Acknowledgements
+\newcommand\Makeacknowledgements[1]{
+    \newpage
+    \topskip0pt
+    \addcontentsline{toc}{section}{Acknowledgements}
+    \vspace*{\fill}
+    \begin{adjustwidth}{1.5cm}{1.5cm} 
+    \begin{center}
+    \textbf{\Large\color{MASA-Blue}\fontfamily{Montserrat-TOsF}\selectfont Acknowledgements}\\
+    \vspace{5mm}
+    \end{center}
+    #1
+    \end{adjustwidth}
+    \vspace*{\fill}
+}
+

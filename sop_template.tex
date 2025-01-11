@@ -1,0 +1,72 @@
+%% margins and fonts
+\usepackage[margin=1in]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+
+% begin package imports -- {{{
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tabto}
+\usepackage{titling}
+\usepackage[iso,german]{isodate}
+\usepackage{tabu}
+% end package imports -- }}}
+
+% begin set section title styles -- {{{
+\usepackage{titlesec}
+\titleformat{\section} {\setcounter{checklistnum}{0} \normalfont\Large\bfseries}{}{0em}{}[{\titlerule[0.8pt]}]
+\titleformat{\subsection} {\setcounter{checklistnum}{0} \normalfont\large}{}{0em}{}[{\titlerule[0.6pt]}]
+% end set section title styles -- }}}
+
+% begin checklist symbols definition -- {{{
+\usepackage{enumitem,amssymb}
+\newcounter{checklistnum}
+\setcounter{checklistnum}{0}
+\DeclareRobustCommand{\checklistnumber}{\refstepcounter{checklistnum}\thechecklistnum}
+\newlist{checklist}{itemize}{6}
+\setlist[checklist,1]{
+label={\color{gray}\checklistnumber}\hspace{2em}$\square$,
+leftmargin=0em,
+itemindent=2em
+}
+\setlist[checklist,2]{
+label={\color{gray}\checklistnumber}\hspace{4em}$\square$,
+leftmargin=0em,
+itemindent=4em
+}
+\setlist[checklist,3]{
+label={\color{gray}\checklistnumber}\hspace{6em}$\square$,
+leftmargin=0em,
+itemindent=6em
+}
+\setlist[checklist,4]{
+label={\color{gray}\checklistnumber}\hspace{8em}$\square$,
+leftmargin=0em,
+itemindent=8em
+}
+\setlist[checklist,5]{
+label={\color{gray}\checklistnumber}\hspace{10em}$\square$,
+leftmargin=0em,
+itemindent=10em
+}
+\setlist[checklist,6]{
+label={\color{gray}\checklistnumber}\hspace{12em}$\square$,
+leftmargin=0em,
+itemindent=12em
+}
+% end checklist symbols definition -- }}}
+
+% begin personnel macro -- {{{
+\newcommand{\operator}[4]{%
+  \expandafter\newcommand\csname #1\endcsname{{\color{#2}\textbf{#3}}\phantom{}}
+  \expandafter\newcommand\csname #1full\endcsname{{\color{#2}\textbf{#4 [#3]}}\phantom{}}
+}
+% end personnel macro -- }}}
+
+% begin flag macro -- {{{
+\newcommand\flag[1]{
+    \hfill \makebox(0,0){\hspace{1.7in}\textcolor{#1}{\rule{0.3in}{0.5in}}}
+}
+% end flag macro -- }}}
+
+\pagenumbering{gobble}
